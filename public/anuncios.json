@@ -5,7 +5,7 @@
 "lifestyle",
 "mobile"
 ],
-"nombre": "Smartphone Xiamoi",
+"nombre": "Smartphone Xiaomi",
 "venta": true,
 "precio": 300,
 "foto": "./public/images/foto1.jpg"
@@ -24,7 +24,7 @@
 "work",
 "lifestyle"
 ],
-"nombre": "Mesa y 4 sillas de camping ",
+"nombre": "Mesa de camping ",
 "venta": true,
 "precio": 190.65,
 "foto": "./public/images/foto3.jpg"
@@ -134,7 +134,7 @@
 "tag": [
 "lifestyle"
 ],
-"nombre": "Manta electrica",
+"nombre": "Manta eléctrica",
 "venta": true,
 "precio": 80,
 "foto": "./public/images/foto14.jpg"
@@ -146,7 +146,7 @@
 "mobile",
 "motor"
 ],
-"nombre": "Navegadot Tom Tom",
+"nombre": "Navegador Tom Tom",
 "venta": false,
 "precio": 490.95,
 "foto": "./public/images/foto15.jpg"

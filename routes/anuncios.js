@@ -82,7 +82,7 @@ router.get('/', async (req, res, next) => {
 router.get('/contar', async (req, res, next) => {   
     try {
         const total = await Anuncio.find().count().exec();   
-        res.render('front', {resultados: total });  
+        res.render('datos', {datos: "Número total de registros", resultados: total});  
         
   } catch(err) {
         next(err);
@@ -97,7 +97,7 @@ router.get('/contar', async (req, res, next) => {
 router.get('/clear', async (req, res, next) => {   
     try {
         await Anuncio.collection.drop();    
-        res.render('front', {resultados: 'Collection anuncios borrada' });  
+        res.render('datos', {resultados: 'Collection anuncios borrada' });  
 
   } catch(err) {
         next(err);
@@ -118,7 +118,7 @@ router.get('/load', async (req, res, next) => {
         await Anuncio.insertMany(anuncios);
 
         console.log('anuncios.json importada a la base de datos');
-        res.render('front', {resultados: 'Collection anuncios importada' });  
+        res.render('datos', {datos: 'Colección <anuncios> importada' });  
         
   } catch(err) {
         next(err);
@@ -134,8 +134,8 @@ router.get('/load', async (req, res, next) => {
 
 router.get('/tags', async (req, res, next) => {   
     try {
-        const total = await Anuncio.distinct('tag').exec();    
-        res.json({ success: true, result: total });  
+        const tags = await Anuncio.distinct('tag').exec();    
+        res.render('tags',{ datos: 'Etiquetas', resultados: tags });  
 
   } catch(err) {
         next(err);
