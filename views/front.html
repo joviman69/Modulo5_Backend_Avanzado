@@ -6,13 +6,15 @@
     <meta charset="utf-8"
   </head>
   <body>
+    <header >
       <h1 class='title'><%= title %></h1>
       <p>Welcome to <%= title %></p>
+    </header>
       <h1>Listado</h1>
       <table>
         <tr>
-        <th>Nombre</th>
-        <th>Transacción</th>
+        <th>Artículo</th>
+        <th>Tipo</th>
         <th>Precio</th>
         <th>Foto</th>
         <th>Etiquetas</th>
@@ -27,9 +29,9 @@
       <tr class='compra'>
       <% } %>
       <td><%= result.nombre %></td>
-      <td><%= trans %></td>
-      <td><%= result.precio %> €</p>
-      <td><img class="foto"src="<%= result.foto %>" alt="<%= result.foto %>"></td>
+      <td class='transaccion'><%= trans %></td>
+      <td class='precio'><%= result.precio %> €</p>
+      <td><img class="foto"src="<%= result.foto %>"></td>
       <td><%= result.tag %></td>
       <td><%= result._id %></td>
     <%- )} %>
