@@ -11,12 +11,11 @@
   </header>
   <form action="/anuncios" method="GET">
   <input type="text" name="nombre" id="nombre" placeholder="Artículo">
-  <input type="radio" name="Transaccion" value="Venta" checked>Venta 
-  <input type="radio" name="Transaccion" value="male">Compra
-    <input type="number" name="precio max" id="precio_max" placeholder="Precio max">
-  <input type="number" name="precio min" id="precio_min" placeholder="Precio min">
-  <!-- <input type="text" name="tag" id="tag"> -->
-  <select name="tags" size="4" multiple>
+  <input type="radio" name="venta" value="true" checked>Venta 
+  <input type="radio" name="venta" value="false">Compra
+  <input type="text" name="precio" id="precio" placeholder="Precio max-min">
+  <select name="tag" size="1" >
+    <option disabled selected value> -- Seleccione una etiqueta -- </option>
     <option value="lifestyle">Lifestyle</option>
     <option value="mobile">Mobile</option>
     <option value="work">Work</option>

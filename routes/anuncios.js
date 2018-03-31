@@ -32,41 +32,46 @@ router.get('/', async (req, res, next) => {
           //filtro.nombre = nombre; 
           filtro.nombre = new RegExp('^' + nombre, "i");
         }
-    
-        if (typeof venta !== 'undefined') {
+
+        // if (venta !== 'undefined' && !(typeof venta !== 'undefined')) {
+        if (typeof venta !== 'undefined')  {
+            if (venta !== "") {
+
           filtro.venta = venta;
         }
+    }
 
         if (typeof precio !== 'undefined') {
-            if (precio.includes("-")) {
-                const p_min = precio.split("-")[0];
-                const p_max = precio.split("-")[1];
-                console.log("p_min :" + p_min + " p_max: " + p_max );
-                filtro.precio = {$gte: p_min , $lte: p_max };
+            if (precio !== "") {
+                if (precio.includes("-")) {
+                    const p_min = precio.split("-")[0];
+                    const p_max = precio.split("-")[1];
+                    console.log("p_min :" + p_min + " p_max: " + p_max );
+                    filtro.precio = {$gte: p_min , $lte: p_max };
 
-                if (p_min === "" ) {
-                    console.log("pmin vacio");
-                    filtro.precio = { $lte: p_max };
-                }
-                if (p_max === "" ) {
-                    console.log("pmax vacio");
-                    filtro.precio = { $gte: p_min };
-                }
-            } else { filtro.precio = precio };
+                    if (p_min === "" ) {
+                        console.log("pmin vacio");
+                        filtro.precio = { $lte: p_max };
+                    }
+                    if (p_max === "" ) {
+                        console.log("pmax vacio");
+                        filtro.precio = { $gte: p_min };
+                    }
+                } else { filtro.precio = precio };
+            }
         }
-
-        if (typeof foto !== 'undefined') {
-          filtro.foto = foto;
-        }
+        // if (typeof foto !== 'undefined') {
+        //   filtro.foto = foto;
+        // }
 
         if (typeof tag !== 'undefined') {
 
-            console.log(tag);
-            const regex = tag.split(" ").join("|");
-            filtro.tag = { $regex: regex, $options: "i" };
+            // console.log(tag);
+            // const regex = tag.split(" ").join("|");
+            // filtro.tag = { $regex: regex, $options: "i" };
+            filtro.tag = tag;
 
           }
-        
         const docs = await Anuncio.listar(filtro, skip, limit, sort, fields); 
         
         res.render('front', {query: filtro, resultados: docs });  
@@ -112,7 +117,6 @@ router.get('/clear', async (req, res, next) => {
 
 router.get('/load', async (req, res, next) => {   
     try {
-        //const anuncios = JSON.parse(fs.readFileSync(__dirname + 'lib/anuncios.json', 'utf-8'));
         const anuncios = JSON.parse(fs.readFileSync('public/anuncios.json', 'utf-8'));
 
         await Anuncio.insertMany(anuncios);
