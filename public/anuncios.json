@@ -8,7 +8,7 @@
 "nombre": "Smartphone Xiaomi",
 "venta": true,
 "precio": 300,
-"foto": "./public/images/foto1.jpg"
+"foto": "/images/xiaomi.jpg"
 },
 {
 "tag": [
@@ -17,7 +17,7 @@
 "nombre": "Guantes de boxeo",
 "venta": false,
 "precio": 90,
-"foto": "./public/images/foto2.jpg"
+"foto": "/images/guantes.jpg"
 },
 {
 "tag": [
@@ -27,7 +27,7 @@
 "nombre": "Mesa de camping ",
 "venta": true,
 "precio": 190.65,
-"foto": "./public/images/foto3.jpg"
+"foto": "/images/mesa.jpg"
 },
 {
 "tag": [
@@ -37,7 +37,7 @@
 "nombre": "Camilla para fisioterapia ",
 "venta": true,
 "precio": 590.25,
-"foto": "./public/images/foto4.jpg"
+"foto": "/images/camilla.jpg"
 },
 {
 "tag": [
@@ -47,7 +47,7 @@
 "nombre": "Radio despertador",
 "venta": true,
 "precio": 30,
-"foto": "./public/images/foto5.jpg"
+"foto": "/images/radio.jpg"
 },
 {
 "tag": [
@@ -56,7 +56,7 @@
 "nombre": "Carrito de bebe Mc Claren",
 "venta": true,
 "precio": 950,
-"foto": "./public/images/foto6.jpg"
+"foto": "/images/carrito.jpg"
 },
 {
 "tag": [
@@ -66,7 +66,7 @@
 "nombre": "Motosierra eléctrica",
 "venta": false,
 "precio": 450,
-"foto": "./public/images/foto7.jpg"
+"foto": "/images/motosierra.jpg"
 },
 {
 "tag": [
@@ -78,7 +78,7 @@
 "nombre": "Manos libres para coche",
 "venta": true,
 "precio": 220,
-"foto": "./public/images/foto8.jpg"
+"foto": "/images/parrot.jpg"
 },
 {
 "tag": [
@@ -88,7 +88,7 @@
 "nombre": "PlayStation 3",
 "venta": false,
 "precio": 200,
-"foto": "./public/images/foto9.jpg"
+"foto": "/images/ps3.jpg"
 },
 {
 "tag": [
@@ -98,7 +98,7 @@
 "nombre": "Mecedora antigüa",
 "venta": true,
 "precio": 550,
-"foto": "./public/images/foto10.jpg"
+"foto": "/images/mecedora.jpg"
 },
 {
 "tag": [
@@ -109,7 +109,7 @@
 "nombre": "Casco de moto XL",
 "venta": true,
 "precio": 360,
-"foto": "./public/images/foto11.jpg"
+"foto": "/images/casco.jpg"
 },
 {
 "tag": [
@@ -119,7 +119,7 @@
 "nombre": "Escalera de aluminio",
 "venta": false,
 "precio": 99,
-"foto": "./public/images/foto12.jpg"
+"foto": "/images/escalera.jpg"
 },
 {
 "tag": [
@@ -128,7 +128,7 @@
 "nombre": "Motocicleta Suzuki Burgman 125cc",
 "venta": true,
 "precio": 3000.00,
-"foto": "./public/images/foto13.jpg"
+"foto": "/images/suzuki.jpg"
 },
 {
 "tag": [
@@ -137,7 +137,7 @@
 "nombre": "Manta eléctrica",
 "venta": true,
 "precio": 80,
-"foto": "./public/images/foto14.jpg"
+"foto": "/images/manta.jpg"
 },
 {
 "tag": [
@@ -149,6 +149,6 @@
 "nombre": "Navegador Tom Tom",
 "venta": false,
 "precio": 490.95,
-"foto": "./public/images/foto15.jpg"
+"foto": "/images/tomtom.jpg"
 }
 ]                                                                                                                                           
