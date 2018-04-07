@@ -102,7 +102,7 @@ router.get('/contar', async (req, res, next) => {
 router.get('/clear', async (req, res, next) => {   
     try {
         await Anuncio.collection.drop();    
-        res.render('datos', {resultados: 'Collection anuncios borrada' });  
+        res.render('datos', {datos: "Funcion clear invocada",resultados: 'Collection anuncios borrada' });  
 
   } catch(err) {
         next(err);
@@ -122,7 +122,7 @@ router.get('/load', async (req, res, next) => {
         await Anuncio.insertMany(anuncios);
 
         console.log('anuncios.json importada a la base de datos');
-        res.render('datos', {datos: 'Colección <anuncios> importada' });  
+        res.render('datos', {datos: "Funcion load invocada", resultados: "Colección <anuncios> importada" });  
         
   } catch(err) {
         next(err);

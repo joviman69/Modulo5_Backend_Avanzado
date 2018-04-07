@@ -15,7 +15,7 @@ require('./lib/connectMongoose');
 require('./models/Anuncio');
 
 // Reseteo de la base de datos
-require('./lib/load');
+// require('./lib/load');
 
 
 var app = express();
