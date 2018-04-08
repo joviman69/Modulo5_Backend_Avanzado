@@ -1,7 +1,12 @@
 # Nodepop AVANZADO (Práctica del módulo 5)
 NodeJs, Express y MongoDB
 
-### NOTA: Cada vez que se reinicia la App se recarga la base de datos de ejemplo "predefinida"
+Internacionalización, subida de imágen en background y auntenticación JWT.
+
+### NOTA: Es necesario ejecutar en segundo plano el microservicio de generación de thumbnails.  
+~~~
+node /lib/thumbService
+~~~
 
 
 ### Features de la API
@@ -91,16 +96,16 @@ admite indicar varios campos separados por espacios
 
 **limit=n**  *limita la salida a n resultados*
 
-### Features especiales
+### Funciones especiales
 
 Es posible recargar la coleccion anuncios "predefinida" en la base de datos
-A traves de la siguiente peticion GET a la app:
+a traves de la siguiente peticion GET a la app:
 ~~~
 http://servidor:puerto/anuncios/load
 ~~~
 
 Es posible borrar la colección anuncios 
-A traves de la siguiente peticion GET a la app:
+a traves de la siguiente peticion GET a la app:
 ~~~
 http://servidor:puerto/anuncios/clear
 ~~~

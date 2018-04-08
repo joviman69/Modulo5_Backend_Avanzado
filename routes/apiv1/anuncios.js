@@ -5,6 +5,10 @@ const router = express.Router();
 
 const Anuncio = require ('../../models/Anuncio.js');
 
+const thumbClient = require('../../lib/thumbClient');
+
+// cargamos objeto de upload
+const upload = require('../../lib/uploadConfig');
 
 // controlador GET
 // Consultar anuncios
@@ -16,6 +20,7 @@ router.get('/', async (req, res, next) => {
         const nombre = req.query.nombre;
         const venta = req.query.venta;
         const precio = req.query.precio
+        const foto = req.query.foto
         const tag = req.query.tag;
         const skip = parseInt(req.query.skip);
         const limit = parseInt(req.query.limit);
@@ -52,6 +57,10 @@ router.get('/', async (req, res, next) => {
                     filtro.precio = { $gte: p_min };
                 }
             } else { filtro.precio = precio };
+        }
+
+        if (typeof foto !== 'undefined') {
+            filtro.foto = foto;
         }
 
         if (typeof tag !== 'undefined') {
@@ -120,10 +129,13 @@ router.get('/:id', async (req, res, next) => {
 // controlador POST 
 // Añadir un anuncio
 
-router.post('/', async (req, res, next) => {   
+// upload graba la imagen indicada en la ruta en  /public/images
+// posteriormente el microservicio generará un thumbnail en la carpeta /public/images/thumbnails
+
+router.post('/', upload.single('foto'), async (req, res, next) => {   
         try {            
             const data = req.body;
-            //console.log(req.body);
+            console.log(req.body);
             console.log('Nuevo documento creado: ', data);
             
             // Creación de nuevo documento basado en el modelo Anuncio para mongoose
@@ -132,7 +144,11 @@ router.post('/', async (req, res, next) => {
             // Grabación en mongodb por mongoose
             await anuncio.save((err, anuncioGuardado) => {
                 res.json({ success: true, result: anuncioGuardado });
-                });
+            });
+            
+            // Llamada al cliente del microservicio de generación Thumbnail
+            console.log(req.foto);
+            await thumbClient.resizer(req.body.foto);
 
         } catch(err) {
             next(err);

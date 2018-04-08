@@ -37,6 +37,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const i18n = require('./lib/i18nConfigure')();
+app.use(i18n.init);
 
 /** Middlewares de app */ 
 app.use('/', index); // ruta raiz
