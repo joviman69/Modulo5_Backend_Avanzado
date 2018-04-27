@@ -5,7 +5,12 @@ Internacionalización, subida de imágen en background y auntenticación JWT.
 
 ### NOTA: Es necesario ejecutar en segundo plano el microservicio de generación de thumbnails.  
 ~~~
-node /lib/thumbService
+node ./lib/thumbService
+~~~
+
+### NOTA2: Es necesario ejecutar el siguiente script para insertar en  MongoDB datos de ejemplo.
+~~~
+node ./lib/thumbService
 ~~~
 
 
@@ -96,7 +101,7 @@ admite indicar varios campos separados por espacios
 
 **limit=n**  *limita la salida a n resultados*
 
-### Funciones especiales
+### Funciones especiales (Solamente para la práctica. En un entorno de producción sería peligroso)
 
 Es posible recargar la coleccion anuncios "predefinida" en la base de datos
 a traves de la siguiente peticion GET a la app:

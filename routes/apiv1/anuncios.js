@@ -1,190 +1,184 @@
-'use strict';
+"use strict";
 
-const express = require('express');
+const express = require("express");
 const router = express.Router();
+const Anuncio = require("../../models/Anuncio.js");
 
-const Anuncio = require ('../../models/Anuncio.js');
-
-const thumbClient = require('../../lib/thumbClient');
+const thumbClient = require("../../lib/thumbClient");
 
 // cargamos objeto de upload
-const upload = require('../../lib/uploadConfig');
+const upload = require("../../lib/uploadConfig");
 
 // controlador GET
 // Consultar anuncios
 
-router.get('/', async (req, res, next) => {   
-    try {
+router.get("/", async (req, res, next) => {
+  try {
+    // Extracción a variables de los parámetros de entrada
+    const nombre = req.query.nombre;
+    const venta = req.query.venta;
+    const precio = req.query.precio;
+    const foto = req.query.foto;
+    const tag = req.query.tag;
+    const skip = parseInt(req.query.skip);
+    const limit = parseInt(req.query.limit);
+    const sort = req.query.sort;
+    //const fields = req.query.fields + " -_id"; // Eliminamos el _id de la respuesta
+    const fields = req.query.fields;
 
-        // Extracción a variables de los parámetros de entrada
-        const nombre = req.query.nombre;
-        const venta = req.query.venta;
-        const precio = req.query.precio
-        const foto = req.query.foto
-        const tag = req.query.tag;
-        const skip = parseInt(req.query.skip);
-        const limit = parseInt(req.query.limit);
-        const sort = req.query.sort;
-        //const fields = req.query.fields + " -_id"; // Eliminamos el _id de la respuesta
-        const fields = req.query.fields; 
+    console.log(req.query);
 
-       console.log(req.query);
-          
-        const filtro = {};
-    
-        if (typeof nombre !== 'undefined') { 
-          
-          filtro.nombre = new RegExp('^' + nombre, "i");
+    const filtro = {};
+
+    if (typeof nombre !== "undefined") {
+      filtro.nombre = new RegExp("^" + nombre, "i");
+    }
+
+    if (typeof venta !== "undefined") {
+      filtro.venta = venta;
+    }
+
+    if (typeof precio !== "undefined") {
+      if (precio.includes("-")) {
+        const p_min = precio.split("-")[0];
+        const p_max = precio.split("-")[1];
+        console.log("p_min :" + p_min + " p_max: " + p_max);
+        filtro.precio = { $gte: p_min, $lte: p_max };
+
+        if (p_min === "") {
+          console.log("pmin vacio");
+          filtro.precio = { $lte: p_max };
         }
-    
-        if (typeof venta !== 'undefined') {
-          filtro.venta = venta;
+        if (p_max === "") {
+          console.log("pmax vacio");
+          filtro.precio = { $gte: p_min };
         }
+      } else {
+        filtro.precio = precio;
+      }
+    }
 
-        if (typeof precio !== 'undefined') {
-            if (precio.includes("-")) {
-                const p_min = precio.split("-")[0];
-                const p_max = precio.split("-")[1];
-                console.log("p_min :" + p_min + " p_max: " + p_max );
-                filtro.precio = {$gte: p_min , $lte: p_max };
+    if (typeof foto !== "undefined") {
+      filtro.foto = foto;
+    }
 
-                if (p_min === "" ) {
-                    console.log("pmin vacio");
-                    filtro.precio = { $lte: p_max };
-                }
-                if (p_max === "" ) {
-                    console.log("pmax vacio");
-                    filtro.precio = { $gte: p_min };
-                }
-            } else { filtro.precio = precio };
-        }
+    if (typeof tag !== "undefined") {
+      console.log(tag);
+      const regex = tag.split(" ").join("|");
+      filtro.tag = { $regex: regex, $options: "i" };
+    }
 
-        if (typeof foto !== 'undefined') {
-            filtro.foto = foto;
-        }
+    const docs = await Anuncio.listar(filtro, skip, limit, sort, fields);
 
-        if (typeof tag !== 'undefined') {
-
-            console.log(tag);
-            const regex = tag.split(" ").join("|");
-            filtro.tag = { $regex: regex, $options: "i" };
-
-          }
-        
-        const docs = await Anuncio.listar(filtro, skip, limit, sort, fields); 
-        
-        res.json({ success: true, result: docs });  
-        //res.json({ docs });  
-      } catch(err) {
-        next(err);
-        return;
-      } 
+    res.json({ success: true, result: docs });
+    //res.json({ docs });
+  } catch (err) {
+    next(err);
+    return;
+  }
 });
 
 // controlador GET
-// Contar anuncios 
+// Contar anuncios
 
-router.get('/contar', async (req, res, next) => {   
-    try {
-        const total = await Anuncio.find().count().exec();    
-        res.json({ success: true, result: total });  
-
-  } catch(err) {
-        next(err);
-        return;
-  }  
+router.get("/contar", async (req, res, next) => {
+  try {
+    const total = await Anuncio.find()
+      .count()
+      .exec();
+    res.json({ success: true, result: total });
+  } catch (err) {
+    next(err);
+    return;
+  }
 });
 
 // controlador GET
-// Mostrar tags 
+// Mostrar tags
 
-router.get('/tags', async (req, res, next) => {   
-    try {
-        const total = await Anuncio.distinct('tag').exec();    
-        res.json({ success: true, result: total });  
-
-  } catch(err) {
-        next(err);
-        return;
-  }  
+router.get("/tags", async (req, res, next) => {
+  try {
+    const total = await Anuncio.distinct("tag").exec();
+    res.json({ success: true, result: total });
+  } catch (err) {
+    next(err);
+    return;
+  }
 });
-
-
 
 // controlador GET
 // Consultar anuncios por _id
 
-router.get('/:id', async (req, res, next) => {   
-    try {
-        const _id = req.params.id;
-        const docs = await Anuncio.find({_id: _id}).exec();    
-        res.json({ success: true, result: docs });  
-
-  } catch(err) {
-        next(err);
-        return;
-  }  
+router.get("/:id", async (req, res, next) => {
+  try {
+    const _id = req.params.id;
+    const docs = await Anuncio.find({ _id: _id }).exec();
+    res.json({ success: true, result: docs });
+  } catch (err) {
+    next(err);
+    return;
+  }
 });
 
-// controlador POST 
+// controlador POST
 // Añadir un anuncio
 
 // upload graba la imagen indicada en la ruta en  /public/images
 // posteriormente el microservicio generará un thumbnail en la carpeta /public/images/thumbnails
 
-router.post('/', upload.single('foto'), async (req, res, next) => {   
-        try {            
-            const data = req.body;
-            console.log(req.body);
-            console.log('Nuevo documento creado: ', data);
-            
-            // Creación de nuevo documento basado en el modelo Anuncio para mongoose
-            const anuncio = new Anuncio(data);
-            
-            // Grabación en mongodb por mongoose
-            await anuncio.save((err, anuncioGuardado) => {
-                res.json({ success: true, result: anuncioGuardado });
-            });
-            
-            // Llamada al cliente del microservicio de generación Thumbnail
-            console.log(req.foto);
-            await thumbClient.resizer(req.body.foto);
+router.post("/", upload.single("foto"), async (req, res, next) => {
+  try {
+    const data = req.body;
+    const fotoSource = req.body.foto;
+    data.foto = "/images/thumbnails/" + data.foto.split("/").pop();
 
-        } catch(err) {
-            next(err);
-            return;
-      }  
+    console.log("Nuevo documento creado: ", data);
+
+    // Creación de nuevo documento basado en el modelo Anuncio para mongoose
+    const anuncio = new Anuncio(data);
+
+    // Grabación en mongodb por mongoose
+    await anuncio.save((err, anuncioGuardado) => {
+      res.json({ success: true, result: anuncioGuardado });
     });
 
-
-    // Controlador DELETE /
-    // Eliminación de un anuncio a traves de su _id
-
-router.delete('/:id', async (req, res, next) => {
-    try {
-        const _id = req.params.id;
-        await Anuncio.remove({_id: _id}).exec();
-        res.json({ success: true });
-    } catch(err) {
-        next(err);
-        return;
-    }
+    // Llamada al cliente del microservicio de generación Thumbnail
+    console.log("llamada a microservicio", fotoSource);
+    await thumbClient.resizer(fotoSource);
+  } catch (err) {
+    next(err);
+    return;
+  }
 });
-    
-    // Controlador PUT 
-    // Actualización de un anuncio
 
-router.put('/:id', async (req, res, next) => {
-    try {
-        const _id = req.params.id;
-        const data = req.body;
-        const anuncioActualizado = await Anuncio.findByIdAndUpdate(_id, data, { 
-        new: true });    
-        res.json({ success: true, result: anuncioActualizado });
-    
-    } catch(err) {
-        next(err);
-        return;
+// Controlador DELETE /
+// Eliminación de un anuncio a traves de su _id
+
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const _id = req.params.id;
+    await Anuncio.remove({ _id: _id }).exec();
+    res.json({ success: true });
+  } catch (err) {
+    next(err);
+    return;
+  }
+});
+
+// Controlador PUT
+// Actualización de un anuncio
+
+router.put("/:id", async (req, res, next) => {
+  try {
+    const _id = req.params.id;
+    const data = req.body;
+    const anuncioActualizado = await Anuncio.findByIdAndUpdate(_id, data, {
+      new: true
+    });
+    res.json({ success: true, result: anuncioActualizado });
+  } catch (err) {
+    next(err);
+    return;
   }
 });
 
