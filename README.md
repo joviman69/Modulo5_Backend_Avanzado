@@ -8,9 +8,9 @@ Internacionalización, subida de imágen en background y auntenticación JWT.
 node ./lib/thumbService
 ~~~
 
-### NOTA2: Es necesario ejecutar el siguiente script para insertar en  MongoDB datos de ejemplo.
+### NOTA2: Es necesario ejecutar el siguiente script para insertar en MongoDB datos de ejemplo iniciales.
 ~~~
-node ./lib/thumbService
+node ./lib/load
 ~~~
 
 
@@ -60,7 +60,7 @@ ejemplo: http://localhost:3000/apiv1/anuncios/5a89c6390774ae0f17e0b61b
 http://localhost:3000/apiv1/anuncios/
 
 Pasandole el documento
-{nombre: 'Raqueta', venta: true, precio: 300, foto: 'foto10', tag: ['lifestyle']}
+{nombre: 'Raqueta', venta: true, precio: 300, foto: '/home/images/foto10', tag: ['lifestyle']}
 ~~~
 
 - Borrar anuncios con una determinada _id. (metodo DELETE)

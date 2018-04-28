@@ -124,18 +124,21 @@ router.get("/:id", async (req, res, next) => {
 // Añadir un anuncio
 
 // upload graba la imagen indicada en la ruta en  /public/images
+// Grabamos los datos del form junto con la ruta de la imagen en MongoDB
 // posteriormente el microservicio generará un thumbnail en la carpeta /public/images/thumbnails
 
 router.post("/", upload.single("foto"), async (req, res, next) => {
   try {
     const data = req.body;
-    const fotoSource = req.body.foto;
-    data.foto = "/images/thumbnails/" + data.foto.split("/").pop();
+    const fotoSource = req.file.path;
+    console.log("fotoSource:", fotoSource);
 
-    console.log("Nuevo documento creado: ", data);
+    data.foto = "/images/thumbnails/" + req.file.filename;
+    // console.log('file:' , req.file);
 
     // Creación de nuevo documento basado en el modelo Anuncio para mongoose
     const anuncio = new Anuncio(data);
+    console.log("Nuevo documento creado: ", data);
 
     // Grabación en mongodb por mongoose
     await anuncio.save((err, anuncioGuardado) => {
