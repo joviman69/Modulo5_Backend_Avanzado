@@ -6,6 +6,7 @@
     "start": "node ./bin/www",
     "dev": "cross-env DEBUG=nodepop:* nodemon ./bin/www",
     "load": "node ./scripts/load",
+    "clear": "node ./scripts/clear",
     "installDB": "node ./scripts/installDB"
   },
   "dependencies": {

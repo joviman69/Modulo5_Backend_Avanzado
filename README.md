@@ -112,18 +112,17 @@ admite indicar varios campos separados por espacios
 
 ### Funciones especiales (Solamente para la práctica. En un entorno de producción sería peligroso)
 
-Es posible recargar la coleccion anuncios "predefinida" en la base de datos
-a traves de la siguiente peticion GET a la app:
+Como indicabamos en las notas iniciales, es posible recargar la coleccion anuncios "predefinida"
+en la base de datos a traves del siguiente script:
 
 ```
-http://servidor:puerto/anuncios/load
+node ./scripts/load
 ```
 
-Es posible borrar la colección anuncios
-a traves de la siguiente peticion GET a la app:
+Es posible borrar la colección anuncios a traves del siguiente script:
 
 ```
-http://servidor:puerto/anuncios/clear
+node ./scripts/clear
 ```
 
 La API requiere una autentificación por JWT

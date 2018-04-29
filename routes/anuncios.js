@@ -96,39 +96,39 @@ router.get('/contar', async (req, res, next) => {
 });
 
 
-// controlador GET
-// drop a colección anuncios
+// // controlador GET
+// // drop a colección anuncios
 
-router.get('/clear', async (req, res, next) => {   
-    try {
-        await Anuncio.collection.drop();    
-        res.render('datos', {datos: "Funcion clear invocada",resultados: 'Collection anuncios borrada' });  
+// router.get('/clear', async (req, res, next) => {   
+//     try {
+//         await Anuncio.collection.drop();    
+//         res.render('datos', {datos: "Funcion clear invocada",resultados: 'Collection anuncios borrada' });  
 
-  } catch(err) {
-        next(err);
-        return;
-  }  
-});
+//   } catch(err) {
+//         next(err);
+//         return;
+//   }  
+// });
 
 
 
-// controlador GET
-// cargar la colección anuncios desde anuncios.json
+// // controlador GET
+// // cargar la colección anuncios desde anuncios.json
 
-router.get('/load', async (req, res, next) => {   
-    try {
-        const anuncios = JSON.parse(fs.readFileSync('public/anuncios.json', 'utf-8'));
+// router.get('/load', async (req, res, next) => {   
+//     try {
+//         const anuncios = JSON.parse(fs.readFileSync('public/anuncios.json', 'utf-8'));
 
-        await Anuncio.insertMany(anuncios);
+//         await Anuncio.insertMany(anuncios);
 
-        console.log('anuncios.json importada a la base de datos');
-        res.render('datos', {datos: "Funcion load invocada", resultados: "Colección <anuncios> importada" });  
+//         console.log('anuncios.json importada a la base de datos');
+//         res.render('datos', {datos: "Funcion load invocada", resultados: "Colección <anuncios> importada" });  
         
-  } catch(err) {
-        next(err);
-        return;
-  }  
-});
+//   } catch(err) {
+//         next(err);
+//         return;
+//   }  
+// });
 
 
 
@@ -164,59 +164,59 @@ router.get('/:id', async (req, res, next) => {
   }  
 });
 
-// controlador POST 
-// Añadir un anuncio
+// // controlador POST 
+// // Añadir un anuncio
 
-router.post('/', async (req, res, next) => {   
-        try {            
-            const data = req.body;
-            //console.log(req.body);
-            console.log('Nuevo documento creado: ', data);
+// router.post('/', async (req, res, next) => {   
+//         try {            
+//             const data = req.body;
+//             //console.log(req.body);
+//             console.log('Nuevo documento creado: ', data);
             
-            // Creación de nuevo documento basado en el modelo Anuncio para mongoose
-            const anuncio = new Anuncio(data);
+//             // Creación de nuevo documento basado en el modelo Anuncio para mongoose
+//             const anuncio = new Anuncio(data);
             
-            // Grabación en mongodb por mongoose
-            await anuncio.save((err, anuncioGuardado) => {
-                res.json({ success: true, result: anuncioGuardado });
-                });
+//             // Grabación en mongodb por mongoose
+//             await anuncio.save((err, anuncioGuardado) => {
+//                 res.json({ success: true, result: anuncioGuardado });
+//                 });
 
-        } catch(err) {
-            next(err);
-            return;
-      }  
-    });
+//         } catch(err) {
+//             next(err);
+//             return;
+//       }  
+//     });
 
 
-    // Controlador DELETE /
-    // Eliminación de un anuncio a traves de su _id
+//     // Controlador DELETE /
+//     // Eliminación de un anuncio a traves de su _id
 
-router.delete('/:id', async (req, res, next) => {
-    try {
-        const _id = req.params.id;
-        await Anuncio.remove({_id: _id}).exec();
-        res.json({ success: true });
-    } catch(err) {
-        next(err);
-        return;
-    }
-});
+// router.delete('/:id', async (req, res, next) => {
+//     try {
+//         const _id = req.params.id;
+//         await Anuncio.remove({_id: _id}).exec();
+//         res.json({ success: true });
+//     } catch(err) {
+//         next(err);
+//         return;
+//     }
+// });
     
-    // Controlador PUT 
-    // Actualización de un anuncio
+//     // Controlador PUT 
+//     // Actualización de un anuncio
 
-router.put('/:id', async (req, res, next) => {
-    try {
-        const _id = req.params.id;
-        const data = req.body;
-        const anuncioActualizado = await Anuncio.findByIdAndUpdate(_id, data, { 
-        new: true });    
-        res.json({ success: true, result: anuncioActualizado });
+// router.put('/:id', async (req, res, next) => {
+//     try {
+//         const _id = req.params.id;
+//         const data = req.body;
+//         const anuncioActualizado = await Anuncio.findByIdAndUpdate(_id, data, { 
+//         new: true });    
+//         res.json({ success: true, result: anuncioActualizado });
     
-    } catch(err) {
-        next(err);
-        return;
-  }
-});
+//     } catch(err) {
+//         next(err);
+//         return;
+//   }
+// });
 
 module.exports = router;
