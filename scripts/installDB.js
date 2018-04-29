@@ -9,7 +9,7 @@ conn.once("open", async () => {
     await initUsuarios();
     conn.close();
   } catch (err) {
-    console.log("Hubo un error:", err);
+    console.log("Error cargando usuario a MongoDB:", err);
     process.exit(1);
   }
 });
