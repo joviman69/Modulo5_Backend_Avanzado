@@ -1,26 +1,36 @@
 <% include header.html %>
-            <div class="search">
-              Formulario de busqueda
-            <form action="/anuncios" method="GET">
-            <input type="text" name="nombre" id="nombre" placeholder="Artículo">
-            <input type="radio" name="venta" value="true" >Venta 
-            <input type="radio" name="venta" value="false">Compra
-            <input type="text" name="precio" id="precio" placeholder="Precio max-min">
-            <select name="tag" size="1" >
-              <option disabled selected value> -- Seleccione una etiqueta -- </option>
-              <option value="lifestyle">Lifestyle</option>
-              <option value="mobile">Mobile</option>
-              <option value="work">Work</option>
-              <option value="motor">Motor</option>
-            </select>
-            <button type="submit" value="Enviar">Enviar</button>
-            <button type="reset" value="Restablecer">Restablecer</button>
-            </form>
-          </div>
-          <div>
-            <ul>
-            <li>Utilice el formulario de búsqueda superior para filtrar los resultados del listado de artículos.</li>
-            <li></li>
-          </ul>
-          </div>
-<% include footer.html %>
+  <p>Welcome to <%= title %></p>
+  <div class="search">
+    Formulario de busqueda
+    <form action="/anuncios" method="GET">
+      <input type="text" name="nombre" id="nombre" placeholder="Artículo">
+      <input type="radio" name="venta" value="true">Venta
+      <input type="radio" name="venta" value="false">Compra
+      <input type="text" name="precio" id="precio" placeholder="Precio max-min">
+      <select name="tag" size="1">
+        <option disabled selected value> -- Seleccione una etiqueta -- </option>
+        <option value="lifestyle">Lifestyle</option>
+        <option value="mobile">Mobile</option>
+        <option value="work">Work</option>
+        <option value="motor">Motor</option>
+      </select>
+      <button type="submit" value="Enviar">Enviar</button>
+      <button type="reset" value="Restablecer">Restablecer</button>
+    </form>
+  </div>
+  <div>
+    <ul>
+      <li>Utilice el formulario de búsqueda superior para filtrar los resultados del listado de artículos.</li>
+      <li>Es posible insertar anuncios a traves de la API </li>
+      <li>Para insertar anuncios envíe una peticion POST a http://localhost:3000/apiv1/anuncios </li>
+      <li>La petición debe contener:</li>
+      <ul>
+        <li>nombre (texto)</li>
+        <li>venta (boleano)</li>
+        <li>precio (float)</li>
+        <li>foto (fichero)</li>
+        <li>tag (texto[work, lifestyle, mobile, motor])</li>
+      </ul>
+    </ul>
+  </div>
+  <% include footer.html %>

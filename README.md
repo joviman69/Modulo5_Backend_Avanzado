@@ -10,7 +10,7 @@ node ./lib/thumbService
 
 ### NOTA2: Es necesario ejecutar el siguiente script para insertar en MongoDB datos de ejemplo iniciales.
 ~~~
-node ./lib/load
+node ./scripts/load
 ~~~
 
 
