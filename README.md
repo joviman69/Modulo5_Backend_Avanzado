@@ -26,7 +26,6 @@ El esquema del modelo Anuncios es:
     foto: String    // ruta del archivo de imagen thumbnail del artículo
     tag: [String]   // etiquetas de categorías del anuncio (work, lifestyle, motor y mobile)
 
-
 TODAS las respuestas de la api son a través un JSON compuesto de:
 
 ```
@@ -149,26 +148,34 @@ La API tiene autenticación en la siguiente ruta:
 ```
 http://servidor:puerto/apiv1/anuncios?token=<TOKEN RECIBIDO>
 ```
+
 En caso de carecer de token válido (incorrecto o expirado) se nos devolverá un status 401 y un mensaje de error por JSON.
 
-
 ### Subida de imágenes en background
+
 Hay implementado un microservicio de generación de thumbnails que se activa corriendo el script:
+
 ```
 node ./lib/thumbService
 ```
+
 La subida de imágenes debe realizarse insertando un anuncio en la aplicación a traves de un envío por método POST a la API (Podemos ayudarnos de la Postman para ello)
 
 ```
 http://localhost:3000/apiv1/anuncios
 ```
-Con los siguientes campos:
-- nombre(texto)
-- venta (boleano)
-- precio (float)
-- foto (fichero)
-- tag (texto[work, lifestyle, mobile, motor])
 
+Con los siguientes campos:
+
+* nombre(texto)
+* venta (boleano)
+* precio (float)
+* foto (fichero)
+* tag (texto[work, lifestyle, mobile, motor])
 
 El proceso se encarga de grabar el documento en la colección anuncios, sustituyendo el archivo de la imagen por la ruta donde se grabará su mininatura. Previamente, la imagen recibida se graba en /public/images. Posteriormente el requester de COTE envía un mensaje 'resize' al responder con la imagen a miniaturizar (con JIMP), la cual es grabada en /public/images/thumbnails.
 
+Es importante no olvidar pasar un token válido junto con la petición.
+
+Header
+x-access-token: <TOKEN>
