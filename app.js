@@ -51,7 +51,7 @@ app.use("/users", users); // ruta /users
 
 /** Middlewares de apiv1 */
 app.use("/apiv1/anuncios", jwtAuth(), require("./routes/apiv1/anuncios"));
-app.use("/apiv1/loginJWT", loginController.loginJWT);
+app.use("/apiv1/authenticate", loginController.authenticate);
 
 /** Middlewares de la web */
 app.use("/anuncios", require("./routes/anuncios"));

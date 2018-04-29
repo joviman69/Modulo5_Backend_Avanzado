@@ -5,42 +5,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 class LoginController {
-  // GET /
-  // index(req, res, next) {
-  //   res.locals.email =
-  //     process.env.NODE_ENV === "development" ? "user@example.com" : "";
-  //   res.locals.error = "";
-  //   res.render("login");
-  // }
-
-  // // POST /
-  // async post(req, res, next) {
-  //   const email = req.body.email;
-  //   const password = req.body.password;
-
-  //   res.locals.error = "";
-  //   res.locals.email = email;
-
-  //   const user = await Usuario.findOne({ email: email });
-
-  //   // Comprobar usuario encontrado y verificar la clave del usuario
-  //   if (!user || !(await bcrypt.compare(password, user.password))) {
-  //     res.locals.error = "Usuario o password incorrectos";
-  //     res.render("login");
-  //     return;
-  //   }
-
-  //   // abcd1234 - admin
-  //   // dentro de la sesión apunto el _id del usuario, para saber que esta
-  //   // sesión está autenticada
-  //   req.session.authUser = { _id: user._id };
-
-  //   // usuario encontrado y validado
-  //   res.redirect("/");
-  // }
-
-  // POST a /loginJWT
-  async loginJWT(req, res, next) {
+  
+  // POST a /authenticate
+  async authenticate(req, res, next) {
     const email = req.body.email;
     const password = req.body.password;
 
@@ -48,7 +15,7 @@ class LoginController {
 
     // Comprobar usuario encontrado y verificar la clave del usuario
     if (!user || !(await bcrypt.compare(password, user.password))) {
-      res.json({ success: false, error: "Wrong credentials" });
+      res.json({ success: false, error: "Usuario o contraseña incorrectos" });
       return;
     }
 
@@ -56,9 +23,8 @@ class LoginController {
     jwt.sign(
       { _id: user._id },
       process.env.JWT_SECRET,
-      // 'secreto',
       {
-        expiresIn: "1d"
+        expiresIn: 30 //El token caduca a los 30 segundos
       },
       (err, token) => {
         if (err) {
@@ -69,19 +35,6 @@ class LoginController {
       }
     );
   }
-
-//   // GET /logout
-//   logout(req, res, next) {
-//     delete req.session.authUser; // borrar authUser de la sesion
-//     req.session.regenerate(function(err) {
-//       // crear nueva sesión vacia
-//       if (err) {
-//         next(err);
-//         return;
-//       }
-//       res.redirect("/");
-//     });
-//   }
 }
 
 module.exports = new LoginController();
