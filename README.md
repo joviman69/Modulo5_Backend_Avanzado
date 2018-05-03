@@ -178,3 +178,7 @@ Es importante no olvidar pasar un token válido junto con la petición.
 
 Header
 x-access-token: <TOKEN>
+
+### Internacionalización
+
+Traducción automática Español/Inglés de textos de la app pulsando en la bandera del idioma de la esquina superior derecha.
