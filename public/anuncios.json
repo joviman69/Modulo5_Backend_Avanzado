@@ -51,15 +51,6 @@
 },
 {
 "tag": [
-"lifestyle"
-],
-"nombre": "Carrito de bebe Maclaren",
-"venta": true,
-"precio": 950,
-"foto": "/images/thumbnails/carrito.jpg"
-},
-{
-"tag": [
 "work",
 "motor"
 ],
@@ -93,16 +84,6 @@
 {
 "tag": [
 "work",
-"lifestyle"
-],
-"nombre": "Mecedora antigüa",
-"venta": true,
-"precio": 550,
-"foto": "/images/thumbnails/mecedora.jpg"
-},
-{
-"tag": [
-"work",
 "lifestyle",
 "motor"
 ],
@@ -129,15 +110,6 @@
 "venta": true,
 "precio": 3000.00,
 "foto": "/images/thumbnails/suzuki.jpg"
-},
-{
-"tag": [
-"lifestyle"
-],
-"nombre": "Manta eléctrica",
-"venta": true,
-"precio": 80,
-"foto": "/images/thumbnails/manta.jpg"
 },
 {
 "tag": [

@@ -134,7 +134,7 @@ router.get("/contar", async (req, res, next) => {
 router.get("/tags", async (req, res, next) => {
   try {
     const tags = await Anuncio.distinct("tag").exec();
-    res.render("tags", { datos: "Etiquetas", resultados: tags });
+    res.render("tags", { datos: Etiquetas , resultados: tags });
   } catch (err) {
     next(err);
     return;
@@ -144,16 +144,17 @@ router.get("/tags", async (req, res, next) => {
 // controlador GET
 // Consultar anuncios por _id
 
-router.get("/:id", async (req, res, next) => {
-  try {
-    const _id = req.params.id;
-    const docs = await Anuncio.find({ _id: _id }).exec();
-    res.json({ success: true, result: docs });
-  } catch (err) {
-    next(err);
-    return;
-  }
-});
+// router.get("/:id", async (req, res, next) => {
+//   try {
+//     const _id = req.params.id;
+//     const docs = await Anuncio.find({ _id: _id }).exec();
+//     // res.json({ success: true, result: docs });
+//     res.render("datos", { datos: "Datos anuncio", resultados: docs });
+//   } catch (err) {
+//     next(err);
+//     return;
+//   }
+// });
 
 // // controlador POST
 // // Añadir un anuncio

@@ -44,10 +44,13 @@ app.use(express.static(path.join(__dirname, "public")));
 const i18n = require("./lib/i18nConfigure")();
 app.use(i18n.init);
 
+console.log();
+
 /** Middlewares de app */
 
 app.use("/", index); // ruta raiz
 app.use("/users", users); // ruta /users
+app.use("/lang" ,require('./routes/lang')); // ruta /users
 
 /** Middlewares de apiv1 */
 app.use("/apiv1/anuncios", jwtAuth(), require("./routes/apiv1/anuncios"));
